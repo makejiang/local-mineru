@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """输出后处理：将 ContentBlock 列表转换为 Markdown。
 
 此模块复用了 mineru-vl-utils 的 post_process.json2md 函数。

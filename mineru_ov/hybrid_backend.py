@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """Hybrid Backend：VLM + Pipeline 双引擎编排。
 
 工作模式

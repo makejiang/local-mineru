@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """公共工具函数：图像处理、文件操作等。
 
 此模块集中管理项目中重复使用的工具函数，确保代码一致性。

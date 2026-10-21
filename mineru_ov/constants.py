@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """项目常量定义：支持的设备、精度、默认参数等。"""
 from __future__ import annotations
 

@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """MinerU-OV: MinerU2.5-Pro × OpenVINO 推理加速项目。
 
 提供文档解析（PDF/图像）的 VLM 与 Hybrid 推理后端。

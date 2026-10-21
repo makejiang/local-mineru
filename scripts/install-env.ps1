@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 param(
     [string]$SkillRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 )
@@ -8,7 +11,8 @@ $SharedUvDir = Join-Path $env:USERPROFILE '.local\bin'
 $UvExe = Join-Path $SharedUvDir 'uv.exe'
 $LegacyUvExe = Join-Path $SkillRoot 'bin\uv.exe'
 $EnvJson = Join-Path $SkillRoot 'info.json'
-$MirrorIndex = 'https://pypi.tuna.tsinghua.edu.cn/simple'
+#$MirrorIndex = 'https://mirrors.cloud.tencent.com/pypi/simple/'
+$MirrorIndex = 'http://mirrors.aliyun.com/pypi/simple/'
 
 if (-not (Test-Path $EnvJson)) {
     Write-Host "ERROR: info.json not found at `"$EnvJson`"."
@@ -174,7 +178,7 @@ function Resolve-WingetUv {
 
 function Install-UvWithPip {
     # `pip install --user` keeps the host's system site-packages untouched and
-    # works without administrator rights. Tsinghua mirror first, PyPI second --
+    # works without administrator rights. mirror first, PyPI second --
     # same order as every other pip install in this script.
     $python = (Get-Command python.exe -ErrorAction SilentlyContinue).Source
     if ($python) {
@@ -426,7 +430,7 @@ if ($LASTEXITCODE -ne 0) {
     Write-Log 'pip missing from venv; seeding pip via uv pip install.'
     & $UvExe pip install --python $VenvPy pip --index-url $MirrorIndex
     if ($LASTEXITCODE -ne 0) {
-        Write-Host '  Tsinghua mirror failed, retrying pip install from official PyPI...'
+        Write-Host "  Mirror($MirrorIndex) failed, retrying pip install from official PyPI..."
         & $UvExe pip install --python $VenvPy pip
     }
     if ($LASTEXITCODE -ne 0) {
@@ -458,12 +462,12 @@ if (Test-Path $RequirementsFile) {
             $basePipArgs += $WheelsDir
         }
 
-        Write-Host "  Installing from requirements.txt (Tsinghua mirror)..."
+        Write-Host "  Installing from requirements.txt (Mirror($MirrorIndex))..."
         Write-Log "Installing from requirements.txt with args: $($basePipArgs -join ' ') --index-url $MirrorIndex"
         & $UvExe @basePipArgs --index-url $MirrorIndex
         if ($LASTEXITCODE -ne 0) {
-            Write-Host '  Tsinghua mirror failed, retrying from official PyPI...'
-            Write-Log '  Tsinghua mirror failed, retrying from official PyPI...'
+            Write-Host "  Mirror($MirrorIndex) failed, retrying from official PyPI..."
+            Write-Log "  Mirror($MirrorIndex) failed, retrying from official PyPI..."
             & $UvExe @basePipArgs
             if ($LASTEXITCODE -ne 0) {
                 Write-Host 'ERROR: Failed to install requirements.'
@@ -560,8 +564,7 @@ if (Test-Path $WheelUrlsFile) {
         }
 
         # The special build has the same version as the public package. A local
-        # path plus --reinstall-package replaces the public build without uv
-        # issuing a HEAD request to GitCode.
+        # path plus --reinstall-package replaces the public build
         $managedPipArgs = @(
             'pip', 'install', '--python', $VenvPy, $wheelPath,
             '--reinstall-package', $wheelInfo.PackageName,
@@ -570,7 +573,7 @@ if (Test-Path $WheelUrlsFile) {
         Write-Host "  Installing managed wheel $wheelName..."
         & $UvExe @managedPipArgs --index-url $MirrorIndex
         if ($LASTEXITCODE -ne 0) {
-            Write-Host "  Tsinghua mirror failed for $wheelName, retrying from official PyPI..."
+            Write-Host "  Mirror($MirrorIndex) failed for $wheelName, retrying from official PyPI..."
             & $UvExe @managedPipArgs
             if ($LASTEXITCODE -ne 0) {
                 Write-Host "ERROR: Failed to install $wheelName."
@@ -606,10 +609,10 @@ if (Test-Path $WheelsDir) {
                 continue
             }
 
-            Write-Host "  Installing $($whl.Name) (Tsinghua mirror for deps)..."
+            Write-Host "  Installing $($whl.Name) (Mirror($MirrorIndex) for deps)..."
             & $UvExe pip install --python $VenvPy $whl.FullName --index-url $MirrorIndex --find-links $WheelsDir
             if ($LASTEXITCODE -ne 0) {
-                Write-Host "  Tsinghua mirror failed for $($whl.Name), retrying from official PyPI..."
+                Write-Host "  Mirror($MirrorIndex) failed for $($whl.Name), retrying from official PyPI..."
                 & $UvExe pip install --python $VenvPy $whl.FullName --find-links $WheelsDir
                 if ($LASTEXITCODE -ne 0) {
                     Write-Host "ERROR: Failed to install $($whl.Name)."

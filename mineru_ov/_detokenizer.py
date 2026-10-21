@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """MinerU Detokenizer 修补模块。
 
 处理 MinerU 版面检测输出中使用的特殊 token，

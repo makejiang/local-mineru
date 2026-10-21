@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """MinerU-OV Pipeline：统一入口，整合 PDF 解析、VLM 推理与后处理。"""
 from __future__ import annotations
 

@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """OpenVINO pipeline 模型封装：PP-DocLayoutV2, UniMerNet, PP-OCRv5.
 
 这些模型在 hybrid backend 中用于：

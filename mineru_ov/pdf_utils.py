@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """PDF 和图像加载工具。
 
 提供统一的 PDF（pypdfium2）和图像文件加载接口。

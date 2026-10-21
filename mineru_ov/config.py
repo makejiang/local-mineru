@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """设备与精度配置管理器。
 
 优先级：CLI 参数 > 环境变量 > 配置文件 > 内置默认值

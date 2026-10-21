@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """OpenVINO backend for MinerU 2.5 document parsing.
 
 核心设计思路：

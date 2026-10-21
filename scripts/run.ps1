@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 param(
     [Parameter(Position=0)][string]$InputFile,
     [Parameter(Position=1)][string]$OutputDir = ''

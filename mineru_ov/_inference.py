@@ -1,3 +1,6 @@
+# Copyright (C) 2026 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
 """推理执行模块：处理 VLM 推理的核心逻辑。"""
 from __future__ import annotations
 
